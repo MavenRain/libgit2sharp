@@ -316,7 +316,7 @@ namespace LibGit2Sharp.Tests
 
             foreach (var method in mis.Distinct())
             {
-                sb.AppendFormat("At least one overload of method '{0}' accepts an optional paramater.{1}",
+                sb.AppendFormat("At least one overload of method '{0}' accepts an optional parameter.{1}",
                     method, Environment.NewLine);
             }
 
@@ -338,7 +338,7 @@ namespace LibGit2Sharp.Tests
 
             foreach (var method in mis.Distinct())
             {
-                sb.AppendFormat("At least one constructor of type '{0}' accepts an optional paramater.{1}",
+                sb.AppendFormat("At least one constructor of type '{0}' accepts an optional parameter.{1}",
                     method, Environment.NewLine);
             }
 
