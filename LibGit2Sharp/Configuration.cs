@@ -242,14 +242,30 @@ namespace LibGit2Sharp
             }
         }
 
+
+        /// <summary>
+        /// Find configuration entries matching <paramref name="regexp"/>.
+        /// </summary>
+        /// <param name="regexp">A regular expression.</param>
+        /// <returns>Matching entries.</returns>
+        public virtual IEnumerable<ConfigurationEntry<string>> Find(string regexp)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(regexp, "regexp");
+
+            using (ConfigurationSafeHandle snapshot = Snapshot())
+            using (ConfigurationSafeHandle h = RetrieveConfigurationHandle(ConfigurationLevel.Local, true, snapshot))
+            {
+                return Proxy.git_config_iterator_glob(h, regexp, BuildConfigEntry).ToList();
+            }
+        }
+
         /// <summary>
         /// Find configuration entries matching <paramref name="regexp"/>.
         /// </summary>
         /// <param name="regexp">A regular expression.</param>
         /// <param name="level">The configuration file into which the key should be searched for.</param>
         /// <returns>Matching entries.</returns>
-        public virtual IEnumerable<ConfigurationEntry<string>> Find(string regexp,
-                                                                     ConfigurationLevel level = ConfigurationLevel.Local)
+        public virtual IEnumerable<ConfigurationEntry<string>> Find(string regexp, ConfigurationLevel level)
         {
             Ensure.ArgumentNotNullOrEmptyString(regexp, "regexp");
 
