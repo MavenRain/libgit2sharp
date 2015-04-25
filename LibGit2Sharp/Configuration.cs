@@ -111,11 +111,25 @@ namespace LibGit2Sharp
         #endregion
 
         /// <summary>
+        /// Unset a configuration variable (key and value) in the local configuration.
+        /// </summary>
+        /// <param name="key">The key to unset.</param>
+        public virtual void Unset(string key)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(key, "key");
+
+            using (ConfigurationSafeHandle h = RetrieveConfigurationHandle(ConfigurationLevel.Local, true, configHandle))
+            {
+                Proxy.git_config_delete(h, key);
+            }
+        }
+
+        /// <summary>
         /// Unset a configuration variable (key and value).
         /// </summary>
         /// <param name="key">The key to unset.</param>
         /// <param name="level">The configuration file which should be considered as the target of this operation</param>
-        public virtual void Unset(string key, ConfigurationLevel level = ConfigurationLevel.Local)
+        public virtual void Unset(string key, ConfigurationLevel level)
         {
             Ensure.ArgumentNotNullOrEmptyString(key, "key");
 
@@ -208,7 +222,6 @@ namespace LibGit2Sharp
                 return Proxy.git_config_get_entry<T>(handle, key);
             }
         }
-
 
         /// <summary>
         /// Set a configuration value for a key. Keys are in the form 'section.name'.
