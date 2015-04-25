@@ -209,6 +209,28 @@ namespace LibGit2Sharp
             }
         }
 
+
+        /// <summary>
+        /// Set a configuration value for a key. Keys are in the form 'section.name'.
+        /// <para>
+        ///   For example in order to set the value for this in a .git\config file:
+        ///
+        ///   [test]
+        ///   boolsetting = true
+        ///
+        ///   You would call:
+        ///
+        ///   repo.Config.Set("test.boolsetting", true);
+        /// </para>
+        /// </summary>
+        /// <typeparam name="T">The configuration value type</typeparam>
+        /// <param name="key">The key parts</param>
+        /// <param name="value">The value</param>
+        public virtual void Set<T>(string key, T value)
+        {
+            Set(key, value, ConfigurationLevel.Local);
+        }
+
         /// <summary>
         /// Set a configuration value for a key. Keys are in the form 'section.name'.
         /// <para>
@@ -226,7 +248,7 @@ namespace LibGit2Sharp
         /// <param name="key">The key parts</param>
         /// <param name="value">The value</param>
         /// <param name="level">The configuration file which should be considered as the target of this operation</param>
-        public virtual void Set<T>(string key, T value, ConfigurationLevel level = ConfigurationLevel.Local)
+        public virtual void Set<T>(string key, T value, ConfigurationLevel level)
         {
             Ensure.ArgumentNotNull(value, "value");
             Ensure.ArgumentNotNullOrEmptyString(key, "key");
@@ -241,7 +263,6 @@ namespace LibGit2Sharp
                 configurationTypedUpdater[typeof(T)](key, value, h);
             }
         }
-
 
         /// <summary>
         /// Find configuration entries matching <paramref name="regexp"/>.
