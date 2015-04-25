@@ -75,7 +75,7 @@ namespace LibGit2Sharp
         /// <summary>
         /// Retrieves the header of a GitObject from the object database. The header contains the Size
         /// and Type of the object. Note that most backends do not support reading only the header
-        /// of an object, so the whole object will be read and then size would be returned.  
+        /// of an object, so the whole object will be read and then size would be returned.
         /// </summary>
         /// <param name="objectId">Object Id of the queried object</param>
         /// <returns>GitObjectMetadata object instance containg object header information</returns>
@@ -387,9 +387,21 @@ namespace LibGit2Sharp
         /// string representation for a <see cref="GitObject"/>.
         /// </summary>
         /// <param name="gitObject">The <see cref="GitObject"/> which identifier should be shortened.</param>
+        /// <returns>A short string representation of the <see cref="ObjectId"/>.</returns>
+        public virtual string ShortenObjectId(GitObject gitObject)
+        {
+            var shortSha = Proxy.git_object_short_id(repo.Handle, gitObject.Id);
+            return shortSha;
+        }
+
+        /// <summary>
+        /// Calculates the current shortest abbreviated <see cref="ObjectId"/>
+        /// string representation for a <see cref="GitObject"/>.
+        /// </summary>
+        /// <param name="gitObject">The <see cref="GitObject"/> which identifier should be shortened.</param>
         /// <param name="minLength">Minimum length of the shortened representation.</param>
         /// <returns>A short string representation of the <see cref="ObjectId"/>.</returns>
-        public virtual string ShortenObjectId(GitObject gitObject, int? minLength = null)
+        public virtual string ShortenObjectId(GitObject gitObject, int? minLength)
         {
             if (minLength.HasValue && (minLength <= 0 || minLength > ObjectId.HexSize))
             {
