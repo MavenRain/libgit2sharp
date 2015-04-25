@@ -543,6 +543,24 @@ namespace LibGit2Sharp
         }
 
         /// <summary>
+        /// Clone using default options.
+        /// </summary>
+        /// <exception cref="RecurseSubmodulesException">This exception is thrown when there
+        /// is an error is encountered while recursively cloning submodules. The inner exception
+        /// will contain the original exception. The initially cloned repository would
+        /// be reported through the <see cref="RecurseSubmodulesException.InitialRepositoryPath"/>
+        /// property.</exception>"
+        /// <exception cref="UserCancelledException">Exception thrown when the cancelling
+        /// the clone of the initial repository.</exception>"
+        /// <param name="sourceUrl">URI for the remote repository</param>
+        /// <param name="workdirPath">Local path to clone into</param>
+        /// <returns>The path to the created repository.</returns>
+        public static string Clone(string sourceUrl, string workdirPath)
+        {
+            return Clone(sourceUrl, workdirPath, null);
+        }
+
+        /// <summary>
         /// Clone with specified options.
         /// </summary>
         /// <exception cref="RecurseSubmodulesException">This exception is thrown when there
@@ -557,7 +575,7 @@ namespace LibGit2Sharp
         /// <param name="options"><see cref="CloneOptions"/> controlling clone behavior</param>
         /// <returns>The path to the created repository.</returns>
         public static string Clone(string sourceUrl, string workdirPath,
-            CloneOptions options = null)
+            CloneOptions options)
         {
             Ensure.ArgumentNotNull(sourceUrl, "sourceUrl");
             Ensure.ArgumentNotNull(workdirPath, "workdirPath");
