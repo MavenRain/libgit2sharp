@@ -369,9 +369,19 @@ namespace LibGit2Sharp
         /// Initialize a repository at the specified <paramref name="path"/>.
         /// </summary>
         /// <param name="path">The path to the working folder when initializing a standard ".git" repository. Otherwise, when initializing a bare repository, the path to the expected location of this later.</param>
+        /// <returns>The path to the created repository.</returns>
+        public static string Init(string path)
+        {
+            return Init(path, false);
+        }
+
+        /// <summary>
+        /// Initialize a repository at the specified <paramref name="path"/>.
+        /// </summary>
+        /// <param name="path">The path to the working folder when initializing a standard ".git" repository. Otherwise, when initializing a bare repository, the path to the expected location of this later.</param>
         /// <param name="isBare">true to initialize a bare repository. False otherwise, to initialize a standard ".git" repository.</param>
         /// <returns>The path to the created repository.</returns>
-        public static string Init(string path, bool isBare = false)
+        public static string Init(string path, bool isBare)
         {
             Ensure.ArgumentNotNullOrEmptyString(path, "path");
 
