@@ -146,9 +146,21 @@ namespace LibGit2Sharp
         /// <param name="reference">The reference to rename.</param>
         /// <param name="newName">The new canonical name.</param>
         /// <param name="logMessage">Message added to the reflog.</param>
+        /// <returns>A new <see cref="Reference"/>.</returns>
+        public virtual Reference Rename(Reference reference, string newName, string logMessage)
+        {
+            return Rename(reference, newName, logMessage, false);
+        }
+
+        /// <summary>
+        /// Rename an existing reference with a new name, and update the reflog
+        /// </summary>
+        /// <param name="reference">The reference to rename.</param>
+        /// <param name="newName">The new canonical name.</param>
+        /// <param name="logMessage">Message added to the reflog.</param>
         /// <param name="allowOverwrite">True to allow silent overwriting a potentially existing reference, false otherwise.</param>
         /// <returns>A new <see cref="Reference"/>.</returns>
-        public virtual Reference Rename(Reference reference, string newName, string logMessage = null, bool allowOverwrite = false)
+        public virtual Reference Rename(Reference reference, string newName, string logMessage, bool allowOverwrite)
         {
             Ensure.ArgumentNotNull(reference, "reference");
             Ensure.ArgumentNotNullOrEmptyString(newName, "newName");
@@ -171,9 +183,20 @@ namespace LibGit2Sharp
         /// </summary>
         /// <param name="reference">The reference to rename.</param>
         /// <param name="newName">The new canonical name.</param>
+        /// <returns>A new <see cref="Reference"/>.</returns>
+        public virtual Reference Rename(Reference reference, string newName)
+        {
+            return Rename(reference, newName, null, false);
+        }
+
+        /// <summary>
+        /// Rename an existing reference with a new name
+        /// </summary>
+        /// <param name="reference">The reference to rename.</param>
+        /// <param name="newName">The new canonical name.</param>
         /// <param name="allowOverwrite">True to allow silent overwriting a potentially existing reference, false otherwise.</param>
         /// <returns>A new <see cref="Reference"/>.</returns>
-        public virtual Reference Rename(Reference reference, string newName, bool allowOverwrite = false)
+        public virtual Reference Rename(Reference reference, string newName, bool allowOverwrite)
         {
             return Rename(reference, newName, null, allowOverwrite);
         }
