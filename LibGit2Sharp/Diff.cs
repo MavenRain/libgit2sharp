@@ -179,6 +179,64 @@ namespace LibGit2Sharp
         /// </summary>
         /// <param name="oldTree">The <see cref="Tree"/> to compare from.</param>
         /// <param name="diffTargets">The targets to compare to.</param>
+        /// <typeparam name="T">Can be either a <see cref="TreeChanges"/> if you are only interested in the list of files modified, added, ..., or
+        /// a <see cref="Patch"/> if you want the actual patch content for the whole diff and for individual files.</typeparam>
+        /// <returns>A <typeparamref name="T"/> containing the changes between the <see cref="Tree"/> and the selected target.</returns>
+        public virtual T Compare<T>(Tree oldTree, DiffTargets diffTargets) where T : class
+        {
+            return Compare<T>(oldTree, diffTargets, null, null, null);
+        }
+
+        /// <summary>
+        /// Show changes between a <see cref="Tree"/> and the Index, the Working Directory, or both.
+        /// <para>
+        /// The level of diff performed can be specified by passing either a <see cref="TreeChanges"/>
+        /// or <see cref="Patch"/> type as the generic parameter.
+        /// </para>
+        /// </summary>
+        /// <param name="oldTree">The <see cref="Tree"/> to compare from.</param>
+        /// <param name="diffTargets">The targets to compare to.</param>
+        /// <param name="paths">The list of paths (either files or directories) that should be compared.</param>
+        /// <typeparam name="T">Can be either a <see cref="TreeChanges"/> if you are only interested in the list of files modified, added, ..., or
+        /// a <see cref="Patch"/> if you want the actual patch content for the whole diff and for individual files.</typeparam>
+        /// <returns>A <typeparamref name="T"/> containing the changes between the <see cref="Tree"/> and the selected target.</returns>
+        public virtual T Compare<T>(Tree oldTree, DiffTargets diffTargets, IEnumerable<string> paths) where T : class
+        {
+            return Compare<T>(oldTree, diffTargets, paths, null, null);
+        }
+
+        /// <summary>
+        /// Show changes between a <see cref="Tree"/> and the Index, the Working Directory, or both.
+        /// <para>
+        /// The level of diff performed can be specified by passing either a <see cref="TreeChanges"/>
+        /// or <see cref="Patch"/> type as the generic parameter.
+        /// </para>
+        /// </summary>
+        /// <param name="oldTree">The <see cref="Tree"/> to compare from.</param>
+        /// <param name="diffTargets">The targets to compare to.</param>
+        /// <param name="paths">The list of paths (either files or directories) that should be compared.</param>
+        /// <param name="explicitPathsOptions">
+        /// If set, the passed <paramref name="paths"/> will be treated as explicit paths.
+        /// Use these options to determine how unmatched explicit paths should be handled.
+        /// </param>
+        /// <typeparam name="T">Can be either a <see cref="TreeChanges"/> if you are only interested in the list of files modified, added, ..., or
+        /// a <see cref="Patch"/> if you want the actual patch content for the whole diff and for individual files.</typeparam>
+        /// <returns>A <typeparamref name="T"/> containing the changes between the <see cref="Tree"/> and the selected target.</returns>
+        public virtual T Compare<T>(Tree oldTree, DiffTargets diffTargets, IEnumerable<string> paths,
+            ExplicitPathsOptions explicitPathsOptions) where T : class
+        {
+            return Compare<T>(oldTree, diffTargets, paths, explicitPathsOptions, null);
+        }
+
+        /// <summary>
+        /// Show changes between a <see cref="Tree"/> and the Index, the Working Directory, or both.
+        /// <para>
+        /// The level of diff performed can be specified by passing either a <see cref="TreeChanges"/>
+        /// or <see cref="Patch"/> type as the generic parameter.
+        /// </para>
+        /// </summary>
+        /// <param name="oldTree">The <see cref="Tree"/> to compare from.</param>
+        /// <param name="diffTargets">The targets to compare to.</param>
         /// <param name="paths">The list of paths (either files or directories) that should be compared.</param>
         /// <param name="explicitPathsOptions">
         /// If set, the passed <paramref name="paths"/> will be treated as explicit paths.
@@ -188,8 +246,8 @@ namespace LibGit2Sharp
         /// <typeparam name="T">Can be either a <see cref="TreeChanges"/> if you are only interested in the list of files modified, added, ..., or
         /// a <see cref="Patch"/> if you want the actual patch content for the whole diff and for individual files.</typeparam>
         /// <returns>A <typeparamref name="T"/> containing the changes between the <see cref="Tree"/> and the selected target.</returns>
-        public virtual T Compare<T>(Tree oldTree, DiffTargets diffTargets, IEnumerable<string> paths = null,
-            ExplicitPathsOptions explicitPathsOptions = null, CompareOptions compareOptions = null) where T : class
+        public virtual T Compare<T>(Tree oldTree, DiffTargets diffTargets, IEnumerable<string> paths,
+            ExplicitPathsOptions explicitPathsOptions, CompareOptions compareOptions) where T : class
         {
             Func<DiffSafeHandle, object> builder;
 
