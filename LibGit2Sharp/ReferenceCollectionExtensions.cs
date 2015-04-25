@@ -127,12 +127,52 @@ namespace LibGit2Sharp
         /// </summary>
         /// <param name="currentName">The canonical name of the reference to rename.</param>
         /// <param name="newName">The new canonical name.</param>
+        /// <param name="refsColl">The <see cref="ReferenceCollection"/> being worked with.</param>
+        /// <returns>A new <see cref="Reference"/>.</returns>
+        public static Reference Rename(this ReferenceCollection refsColl, string currentName, string newName)
+        {
+            return refsColl.Rename(currentName, newName, null, false);
+        }
+
+        /// <summary>
+        /// Rename an existing reference with a new name
+        /// </summary>
+        /// <param name="currentName">The canonical name of the reference to rename.</param>
+        /// <param name="newName">The new canonical name.</param>
+        /// <param name="allowOverwrite">True to allow silent overwriting a potentially existing reference, false otherwise.</param>
+        /// <param name="refsColl">The <see cref="ReferenceCollection"/> being worked with.</param>
+        /// <returns>A new <see cref="Reference"/>.</returns>
+        public static Reference Rename(this ReferenceCollection refsColl, string currentName, string newName,
+            bool allowOverwrite)
+        {
+            return refsColl.Rename(currentName, newName, null, allowOverwrite);
+        }
+
+        /// <summary>
+        /// Rename an existing reference with a new name
+        /// </summary>
+        /// <param name="currentName">The canonical name of the reference to rename.</param>
+        /// <param name="newName">The new canonical name.</param>
+        /// <param name="logMessage">The optional message to log in the <see cref="ReflogCollection"/></param>
+        /// <param name="refsColl">The <see cref="ReferenceCollection"/> being worked with.</param>
+        /// <returns>A new <see cref="Reference"/>.</returns>
+        public static Reference Rename(this ReferenceCollection refsColl, string currentName, string newName,
+            string logMessage)
+        {
+            return refsColl.Rename(currentName, newName, logMessage, false);
+        }
+
+        /// <summary>
+        /// Rename an existing reference with a new name
+        /// </summary>
+        /// <param name="currentName">The canonical name of the reference to rename.</param>
+        /// <param name="newName">The new canonical name.</param>
         /// <param name="logMessage">The optional message to log in the <see cref="ReflogCollection"/></param>
         /// <param name="allowOverwrite">True to allow silent overwriting a potentially existing reference, false otherwise.</param>
         /// <param name="refsColl">The <see cref="ReferenceCollection"/> being worked with.</param>
         /// <returns>A new <see cref="Reference"/>.</returns>
         public static Reference Rename(this ReferenceCollection refsColl, string currentName, string newName,
-            string logMessage = null, bool allowOverwrite = false)
+            string logMessage, bool allowOverwrite)
         {
             Ensure.ArgumentNotNullOrEmptyString(currentName, "currentName");
 
