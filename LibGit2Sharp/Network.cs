@@ -148,7 +148,7 @@ namespace LibGit2Sharp
         /// <param name="options"><see cref="FetchOptions"/> controlling fetch behavior</param>
         public virtual void Fetch(Remote remote, FetchOptions options)
         {
-            Fetch(remote, null, options);
+            Fetch(remote, options, null);
         }
 
         /// <summary>
