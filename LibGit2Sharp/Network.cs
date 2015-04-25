@@ -184,12 +184,31 @@ namespace LibGit2Sharp
         /// <param name="remote">The <see cref="Remote"/> to push to.</param>
         /// <param name="objectish">The source objectish to push.</param>
         /// <param name="destinationSpec">The reference to update on the remote.</param>
+        public virtual void Push(
+            Remote remote,
+            string objectish,
+            string destinationSpec)
+        {
+            Ensure.ArgumentNotNull(remote, "remote");
+            Ensure.ArgumentNotNull(objectish, "objectish");
+            Ensure.ArgumentNotNullOrEmptyString(destinationSpec, destinationSpec);
+
+            Push(remote, string.Format(CultureInfo.InvariantCulture,
+                "{0}:{1}", objectish, destinationSpec));
+        }
+
+        /// <summary>
+        /// Push the objectish to the destination reference on the <see cref="Remote"/>.
+        /// </summary>
+        /// <param name="remote">The <see cref="Remote"/> to push to.</param>
+        /// <param name="objectish">The source objectish to push.</param>
+        /// <param name="destinationSpec">The reference to update on the remote.</param>
         /// <param name="pushOptions"><see cref="PushOptions"/> controlling push behavior</param>
         public virtual void Push(
             Remote remote,
             string objectish,
             string destinationSpec,
-            PushOptions pushOptions = null)
+            PushOptions pushOptions)
         {
             Ensure.ArgumentNotNull(remote, "remote");
             Ensure.ArgumentNotNull(objectish, "objectish");
@@ -204,11 +223,25 @@ namespace LibGit2Sharp
         /// </summary>
         /// <param name="remote">The <see cref="Remote"/> to push to.</param>
         /// <param name="pushRefSpec">The pushRefSpec to push.</param>
+        public virtual void Push(
+            Remote remote,
+            string pushRefSpec)
+        {
+            Ensure.ArgumentNotNull(remote, "remote");
+            Ensure.ArgumentNotNullOrEmptyString(pushRefSpec, "pushRefSpec");
+
+            Push(remote, new[] { pushRefSpec });
+        }
+        /// <summary>
+        /// Push specified reference to the <see cref="Remote"/>.
+        /// </summary>
+        /// <param name="remote">The <see cref="Remote"/> to push to.</param>
+        /// <param name="pushRefSpec">The pushRefSpec to push.</param>
         /// <param name="pushOptions"><see cref="PushOptions"/> controlling push behavior</param>
         public virtual void Push(
             Remote remote,
             string pushRefSpec,
-            PushOptions pushOptions = null)
+            PushOptions pushOptions)
         {
             Ensure.ArgumentNotNull(remote, "remote");
             Ensure.ArgumentNotNullOrEmptyString(pushRefSpec, "pushRefSpec");
@@ -221,11 +254,23 @@ namespace LibGit2Sharp
         /// </summary>
         /// <param name="remote">The <see cref="Remote"/> to push to.</param>
         /// <param name="pushRefSpecs">The pushRefSpecs to push.</param>
+        public virtual void Push(
+            Remote remote,
+            IEnumerable<string> pushRefSpecs)
+        {
+            Push(remote, pushRefSpecs, null);
+        }
+
+        /// <summary>
+        /// Push specified references to the <see cref="Remote"/>.
+        /// </summary>
+        /// <param name="remote">The <see cref="Remote"/> to push to.</param>
+        /// <param name="pushRefSpecs">The pushRefSpecs to push.</param>
         /// <param name="pushOptions"><see cref="PushOptions"/> controlling push behavior</param>
         public virtual void Push(
             Remote remote,
             IEnumerable<string> pushRefSpecs,
-            PushOptions pushOptions = null)
+            PushOptions pushOptions)
         {
             Ensure.ArgumentNotNull(remote, "remote");
             Ensure.ArgumentNotNull(pushRefSpecs, "pushRefSpecs");
