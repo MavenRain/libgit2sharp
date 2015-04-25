@@ -44,10 +44,21 @@ namespace LibGit2Sharp
         /// The path to the git repository to open, can be either the path to the git directory (for non-bare repositories this
         /// would be the ".git" folder inside the working directory) or the path to the working directory.
         /// </param>
+        public Repository(string path) : this(path, null)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Repository"/> class, providing ooptional behavioral overrides through <paramref name="options"/> parameter.
+        /// <para>For a standard repository, <paramref name="path"/> should either point to the ".git" folder or to the working directory. For a bare repository, <paramref name="path"/> should directly point to the repository folder.</para>
+        /// </summary>
+        /// <param name="path">
+        /// The path to the git repository to open, can be either the path to the git directory (for non-bare repositories this
+        /// would be the ".git" folder inside the working directory) or the path to the working directory.
+        /// </param>
         /// <param name="options">
         /// Overrides to the way a repository is opened.
         /// </param>
-        public Repository(string path, RepositoryOptions options = null)
+        public Repository(string path, RepositoryOptions options)
         {
             Ensure.ArgumentNotNullOrEmptyString(path, "path");
 
