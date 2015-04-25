@@ -128,6 +128,71 @@ namespace LibGit2Sharp
         /// </summary>
         /// <param name="oldTree">The <see cref="Tree"/> you want to compare from.</param>
         /// <param name="newTree">The <see cref="Tree"/> you want to compare to.</param>
+        /// <returns>A <see cref="TreeChanges"/> containing the changes between the <paramref name="oldTree"/> and the <paramref name="newTree"/>.</returns>
+        public virtual T Compare<T>(Tree oldTree, Tree newTree) where T : class
+        {
+            return Compare<T>(oldTree, newTree, null, null, null);
+        }
+
+        /// <summary>
+        /// Show changes between two <see cref="Tree"/>s.
+        /// </summary>
+        /// <param name="oldTree">The <see cref="Tree"/> you want to compare from.</param>
+        /// <param name="newTree">The <see cref="Tree"/> you want to compare to.</param>
+        /// <param name="paths">The list of paths (either files or directories) that should be compared.</param>
+        /// <returns>A <see cref="TreeChanges"/> containing the changes between the <paramref name="oldTree"/> and the <paramref name="newTree"/>.</returns>
+        public virtual T Compare<T>(Tree oldTree, Tree newTree, IEnumerable<string> paths) where T : class
+        {
+            return Compare<T>(oldTree, newTree, paths, null, null);
+        }
+
+        /// <summary>
+        /// Show changes between two <see cref="Tree"/>s.
+        /// </summary>
+        /// <param name="oldTree">The <see cref="Tree"/> you want to compare from.</param>
+        /// <param name="newTree">The <see cref="Tree"/> you want to compare to.</param>
+        /// <param name="paths">The list of paths (either files or directories) that should be compared.</param>
+        /// <param name="explicitPathsOptions">
+        /// If set, the passed <paramref name="paths"/> will be treated as explicit paths.
+        /// Use these options to determine how unmatched explicit paths should be handled.
+        /// </param>
+        /// <returns>A <see cref="TreeChanges"/> containing the changes between the <paramref name="oldTree"/> and the <paramref name="newTree"/>.</returns>
+        public virtual T Compare<T>(Tree oldTree, Tree newTree, IEnumerable<string> paths,
+            ExplicitPathsOptions explicitPathsOptions) where T : class
+        {
+            return Compare<T>(oldTree, newTree, paths, explicitPathsOptions, null);
+        }
+
+        /// <summary>
+        /// Show changes between two <see cref="Tree"/>s.
+        /// </summary>
+        /// <param name="oldTree">The <see cref="Tree"/> you want to compare from.</param>
+        /// <param name="newTree">The <see cref="Tree"/> you want to compare to.</param>
+        /// <param name="paths">The list of paths (either files or directories) that should be compared.</param>
+        /// <param name="compareOptions">Additional options to define patch generation behavior.</param>
+        /// <returns>A <see cref="TreeChanges"/> containing the changes between the <paramref name="oldTree"/> and the <paramref name="newTree"/>.</returns>
+        public virtual T Compare<T>(Tree oldTree, Tree newTree, IEnumerable<string> paths, CompareOptions compareOptions) where T : class
+        {
+            return Compare<T>(oldTree, newTree, paths, null, compareOptions);
+        }
+
+        /// <summary>
+        /// Show changes between two <see cref="Tree"/>s.
+        /// </summary>
+        /// <param name="oldTree">The <see cref="Tree"/> you want to compare from.</param>
+        /// <param name="newTree">The <see cref="Tree"/> you want to compare to.</param>
+        /// <param name="compareOptions">Additional options to define patch generation behavior.</param>
+        /// <returns>A <see cref="TreeChanges"/> containing the changes between the <paramref name="oldTree"/> and the <paramref name="newTree"/>.</returns>
+        public virtual T Compare<T>(Tree oldTree, Tree newTree, CompareOptions compareOptions) where T : class
+        {
+            return Compare<T>(oldTree, newTree, null, null, compareOptions);
+        }
+
+        /// <summary>
+        /// Show changes between two <see cref="Tree"/>s.
+        /// </summary>
+        /// <param name="oldTree">The <see cref="Tree"/> you want to compare from.</param>
+        /// <param name="newTree">The <see cref="Tree"/> you want to compare to.</param>
         /// <param name="paths">The list of paths (either files or directories) that should be compared.</param>
         /// <param name="explicitPathsOptions">
         /// If set, the passed <paramref name="paths"/> will be treated as explicit paths.
@@ -135,8 +200,8 @@ namespace LibGit2Sharp
         /// </param>
         /// <param name="compareOptions">Additional options to define patch generation behavior.</param>
         /// <returns>A <see cref="TreeChanges"/> containing the changes between the <paramref name="oldTree"/> and the <paramref name="newTree"/>.</returns>
-        public virtual T Compare<T>(Tree oldTree, Tree newTree, IEnumerable<string> paths = null, ExplicitPathsOptions explicitPathsOptions = null,
-            CompareOptions compareOptions = null) where T : class
+        public virtual T Compare<T>(Tree oldTree, Tree newTree, IEnumerable<string> paths, ExplicitPathsOptions explicitPathsOptions,
+            CompareOptions compareOptions) where T : class
         {
             Func<DiffSafeHandle, object> builder;
 
