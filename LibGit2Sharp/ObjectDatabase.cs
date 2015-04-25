@@ -182,10 +182,45 @@ namespace LibGit2Sharp
         /// <para>Optionally, git filters will be applied to the content before storing it.</para>
         /// </summary>
         /// <param name="stream">The stream from which will be read the content of the blob to be created.</param>
+        /// <returns>The created <see cref="Blob"/>.</returns>
+        public virtual Blob CreateBlob(Stream stream)
+        {
+            return CreateBlob(stream, null, null);
+        }
+
+        /// <summary>
+        /// Inserts a <see cref="Blob"/> into the object database, created from the content of a stream.
+        /// <para>Optionally, git filters will be applied to the content before storing it.</para>
+        /// </summary>
+        /// <param name="stream">The stream from which will be read the content of the blob to be created.</param>
+        /// <param name="hintpath">The hintpath is used to determine what git filters should be applied to the object before it can be placed to the object database.</param>
+        /// <returns>The created <see cref="Blob"/>.</returns>
+        public virtual Blob CreateBlob(Stream stream, string hintpath)
+        {
+            return CreateBlob(stream, hintpath, null);
+        }
+
+        /// <summary>
+        /// Inserts a <see cref="Blob"/> into the object database, created from the content of a stream.
+        /// <para>Optionally, git filters will be applied to the content before storing it.</para>
+        /// </summary>
+        /// <param name="stream">The stream from which will be read the content of the blob to be created.</param>
+        /// <param name="numberOfBytesToConsume">The number of bytes to consume from the stream.</param>
+        /// <returns>The created <see cref="Blob"/>.</returns>
+        public virtual Blob CreateBlob(Stream stream, int? numberOfBytesToConsume)
+        {
+            return CreateBlob(stream, null, numberOfBytesToConsume);
+        }
+
+        /// <summary>
+        /// Inserts a <see cref="Blob"/> into the object database, created from the content of a stream.
+        /// <para>Optionally, git filters will be applied to the content before storing it.</para>
+        /// </summary>
+        /// <param name="stream">The stream from which will be read the content of the blob to be created.</param>
         /// <param name="hintpath">The hintpath is used to determine what git filters should be applied to the object before it can be placed to the object database.</param>
         /// <param name="numberOfBytesToConsume">The number of bytes to consume from the stream.</param>
         /// <returns>The created <see cref="Blob"/>.</returns>
-        public virtual Blob CreateBlob(Stream stream, string hintpath = null, int? numberOfBytesToConsume = null)
+        public virtual Blob CreateBlob(Stream stream, string hintpath, int? numberOfBytesToConsume)
         {
             Ensure.ArgumentNotNull(stream, "stream");
 
