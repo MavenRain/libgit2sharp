@@ -148,7 +148,7 @@ namespace LibGit2Sharp
         }
 
         /// <summary>
-        /// Get a configuration value for a key. Keys are in the form 'section.name'.
+        /// Get a configuration value for a key in the local configuration. Keys are in the form 'section.name'.
         /// <para>
         ///    The same escalation logic than in git.git will be used when looking for the key in the config files:
         ///       - local: the Git file in the current repository
@@ -224,7 +224,7 @@ namespace LibGit2Sharp
         }
 
         /// <summary>
-        /// Set a configuration value for a key. Keys are in the form 'section.name'.
+        /// Set a configuration value for a key in the local configuration. Keys are in the form 'section.name'.
         /// <para>
         ///   For example in order to set the value for this in a .git\config file:
         ///
