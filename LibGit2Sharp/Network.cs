@@ -191,7 +191,7 @@ namespace LibGit2Sharp
         {
             Ensure.ArgumentNotNull(remote, "remote");
             Ensure.ArgumentNotNull(objectish, "objectish");
-            Ensure.ArgumentNotNullOrEmptyString(destinationSpec, destinationSpec);
+            Ensure.ArgumentNotNullOrEmptyString(destinationSpec, "destinationSpec");
 
             Push(remote, string.Format(CultureInfo.InvariantCulture,
                 "{0}:{1}", objectish, destinationSpec));
@@ -212,7 +212,7 @@ namespace LibGit2Sharp
         {
             Ensure.ArgumentNotNull(remote, "remote");
             Ensure.ArgumentNotNull(objectish, "objectish");
-            Ensure.ArgumentNotNullOrEmptyString(destinationSpec, destinationSpec);
+            Ensure.ArgumentNotNullOrEmptyString(destinationSpec, "destinationSpec");
 
             Push(remote, string.Format(CultureInfo.InvariantCulture,
                 "{0}:{1}", objectish, destinationSpec), pushOptions);
