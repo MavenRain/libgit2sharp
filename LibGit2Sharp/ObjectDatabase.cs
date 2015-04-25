@@ -295,9 +295,32 @@ namespace LibGit2Sharp
         /// <param name="tree">The <see cref="Tree"/> of the <see cref="Commit"/> to be created.</param>
         /// <param name="parents">The parents of the <see cref="Commit"/> to be created.</param>
         /// <param name="prettifyMessage">True to prettify the message, or false to leave it as is.</param>
+        /// <returns>The created <see cref="Commit"/>.</returns>
+        public virtual Commit CreateCommit(Signature author, Signature committer, string message, Tree tree, IEnumerable<Commit> parents, bool prettifyMessage)
+        {
+            return CreateCommit(author, committer, message, tree, parents, prettifyMessage, null);
+        }
+
+        /// <summary>
+        /// Inserts a <see cref="Commit"/> into the object database, referencing an existing <see cref="Tree"/>.
+        /// <para>
+        /// Prettifing the message includes:
+        /// * Removing empty lines from the beginning and end.
+        /// * Removing trailing spaces from every line.
+        /// * Turning multiple consecutive empty lines between paragraphs into just one empty line.
+        /// * Ensuring the commit message ends with a newline.
+        /// * Removing every line starting with "#".
+        /// </para>
+        /// </summary>
+        /// <param name="author">The <see cref="Signature"/> of who made the change.</param>
+        /// <param name="committer">The <see cref="Signature"/> of who added the change to the repository.</param>
+        /// <param name="message">The description of why a change was made to the repository.</param>
+        /// <param name="tree">The <see cref="Tree"/> of the <see cref="Commit"/> to be created.</param>
+        /// <param name="parents">The parents of the <see cref="Commit"/> to be created.</param>
+        /// <param name="prettifyMessage">True to prettify the message, or false to leave it as is.</param>
         /// <param name="commentChar">Character that lines start with to be stripped if prettifyMessage is true.</param>
         /// <returns>The created <see cref="Commit"/>.</returns>
-        public virtual Commit CreateCommit(Signature author, Signature committer, string message, Tree tree, IEnumerable<Commit> parents, bool prettifyMessage, char? commentChar = null)
+        public virtual Commit CreateCommit(Signature author, Signature committer, string message, Tree tree, IEnumerable<Commit> parents, bool prettifyMessage, char? commentChar)
         {
             Ensure.ArgumentNotNull(message, "message");
             Ensure.ArgumentDoesNotContainZeroByte(message, "message");
