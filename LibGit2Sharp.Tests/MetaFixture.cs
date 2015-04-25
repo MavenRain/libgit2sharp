@@ -307,6 +307,7 @@ namespace LibGit2Sharp.Tests
                 from t in Assembly.GetAssembly(typeof(IRepository))
                     .GetExportedTypes()
                 from m in t.GetMethods()
+                where !m.IsObsolete()
                 from p in m.GetParameters()
                 where p.IsOptional
                 select m.DeclaringType + "." + m.Name;
@@ -342,6 +343,15 @@ namespace LibGit2Sharp.Tests
             }
 
             Assert.Equal("", sb.ToString());
+        }
+    }
+
+    internal static class TypeExtensions
+    {
+        internal static bool IsObsolete(this MethodInfo methodInfo)
+        {
+            var attributes = methodInfo.GetCustomAttributes(false);
+            return attributes.Any(a => a is ObsoleteAttribute);
         }
     }
 }
