@@ -90,7 +90,7 @@ namespace LibGit2Sharp.Tests
         [Fact]
         public void CanFakeEnumerationOfConfiguration()
         {
-            var fakeConfig = new Mock<Configuration>();
+            var fakeConfig = new Mock<Configuration>(null, null, null);
             fakeConfig.Setup(c => c.GetEnumerator()).Returns(FakeEntries);
 
             Assert.Equal(2, fakeConfig.Object.Count());
