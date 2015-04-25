@@ -18,7 +18,7 @@ namespace LibGit2Sharp
         {
             Ensure.ArgumentNotNull(blob, "blob");
 
-            return ReadToEnd(blob.GetContentStream(), Encoding.UTF8);
+            return ReadToEnd(blob.GetContentStream(), null);
         }
 
         /// <summary>
